@@ -1,0 +1,875 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Universal selector to reset styles for all elements */
+*{
+    padding: 0;
+    margin: 0;
+    color: white;
+    box-sizing: border-box; /* Ensures padding and borders are included in width/height calculations */
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+}
+
+/* Sticky header container */
+#header-section{
+    top: 0;
+    position: sticky;
+    height: 70px;
+    width: 100%;
+    z-index: 1000;  /* always places navbar above every other content */
+    background-color: black;
+}
+
+/* Styling for the header elements */
+header{
+    display: flex; /* Enables flexbox layout for the header */
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Styling for the navigation name or brand logo */
+.nav-name{
+    margin-left: 90px;
+    font-size: 1.42rem;
+    letter-spacing: 0.6px;
+    margin-top: 20px;
+}
+
+/* Styling for a highlighted span in the navigation name */
+.nav-name span{
+    color: crimson;
+}
+
+.list{
+    list-style-type: none;
+    display: flex;  /* Aligns list items in a horizontal row */
+    font-size: 1.4rem;    
+    justify-content: center;
+    margin-right: 60px;
+    margin-top: 20px;
+}
+
+/* Styling for individual list items */
+.list li{
+    padding: 5px;
+    margin-left: 60px;
+    letter-spacing: 2px;
+}
+
+.list li a{
+    display: block;
+    z-index: 2000;
+    transition: 0.2s;
+}
+
+/* Hover effect for links in list items */
+.list li a:hover{
+    color:rgb(238, 6, 53);
+    padding-bottom:  15px;
+}
+
+.list li a:active{
+    color:rgb(238, 6, 53);
+    padding-bottom:  15px;
+}
+
+.hamburger{
+    display: none;
+}
+
+@media only screen and (max-width: 1400px){
+    header{
+        padding: 0 10px;
+        /* width: 100%; */
+    }
+}
+
+@media only screen and (max-width: 1365px){
+    /* hamburger menu */
+    .hamburger{
+        position: absolute;
+        border: 3px solid white;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;   /* Rounds the edges of the pseudo-element to make it circular. */
+        margin-left: -70px;
+        display: flex;     /* Sets the element as a flex container to align content. */
+        align-items: center;   /* Vertically centers content within the hamburger button. */
+        justify-content: center;   /* Horizontally centers content within the hamburger button. */
+        z-index: 100;
+        cursor: pointer;
+        transform: scale(0.8);   /* Slightly shrinks the size of the button to 80% of its original size. */
+    }
+
+    .hamburger::after {
+        content: "";    /* Creates an empty pseudo-element inside the hamburger button. */
+        border: 3px solid white;
+        height: 100%;   /* Sets the height of the pseudo-element to match the button's height. */
+        width: 100%;
+        border-radius: 50%;
+        position: absolute;    /* Positions the pseudo-element relative to the parent element. */
+        animation: hamburger-puls 1s ease infinite;  /* Applies a pulsing animation to the pseudo-element that repeats infinitely. */
+    }
+
+    @keyframes hamburger-puls {
+        0% {
+        opacity: 1;  /* The pseudo-element is fully visible at the start of the animation. */
+        transform: scale(1);   /* The pseudo-element starts at its original size. */
+        }
+        100% {
+        opacity: 0;    /* The pseudo-element becomes completely transparent at the end of the animation. */
+        transform: scale(1.4); /* The pseudo-element grows to 1.4 times its original size. */
+        }
+    }
+    
+    .hamburger .bar {
+        background-color: white;
+        height: 2px;
+        width: 30px;
+        position: relative;
+        z-index: -1;
+    }
+
+    .hamburger .bar::before,
+    .hamburger .bar::after {
+    content: "";     /* Creates two pseudo-elements (one for the top and one for the bottom bar). */
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;  /* Positions the pseudo-elements relative to their parent `.bar`. */
+    left: 0;
+    transition: 0.3s ease top, bottom; /* Smoothly transitions the `top` and `bottom` properties over 0.3 seconds when they change. */
+    }
+
+    .hamburger .bar::after {
+        top: 8px;   /* Positions the "after" pseudo-element 8px below the main bar. */
+    }
+    
+    .hamburger .bar::before {
+        bottom: 8px;   /* Positions the "before" pseudo-element 8px above the main bar. */
+    }
+
+    .hamburger.active .bar::before {
+        bottom: 0;   /* When `.hamburger` has the `active` class, moves the "before" pseudo-element to overlap with the main bar. */
+    }
+    
+    .hamburger.active .bar::after {
+        top: 0;    /* When `.hamburger` has the `active` class, moves the "after" pseudo-element to overlap with the main bar. */
+    }
+
+    /* header styling for mobiles */
+    .list {
+        background-color: rgb(31, 30, 30);
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        position: absolute; /* Positions the menu relative to its parent nav-list. */
+        /* left: 100%; */
+        top: 0px;
+        z-index: 1;
+        /* overflow-x: hidden; */
+        /* transition: 0.3s ease; */
+        display: none;
+    }
+
+    .list.active {
+        left: 0;    /* Moves the menu to align with the left edge of the viewport. */
+        display: flex;   /* Changes display to flex when the list is active, making it a flex container. */
+    }
+
+    .list a {
+        font-size: 2.5rem;
+        font-weight: 500;
+        letter-spacing: 0.2rem;
+        /* text-decoration: none; */
+        color: white;
+        display: block;
+        padding: 30px;
+    }
+
+    .list li a::after {
+        content: attr(data-after); /* Displays the value of the `data-after` attribute. */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);  /* Centers and hides the pseudo-element initially. */
+        color: rgba(240, 248, 255, 0.07); 
+        font-size: 8rem;
+        letter-spacing: 50px;
+        z-index: -1;
+        transition: 0.3s ease letter-spacing;
+    }
+
+    /* Hover effect for the menu links */
+    #nav-list .list li:hover a::after {
+        transform: translate(-50%, -50%) scale(1);  /* Enlarges the pseudo-element on hover. */
+        letter-spacing: initial;  /* Resets the letter-spacing to default. */
+    }
+
+    .list li:hover a {
+        color: crimson;
+    }
+}
+
+/* Home-section */
+/* Home section background styling */
+#home{
+    background: url('./images/hero-bg.jpg') no-repeat center center/cover;
+    position: absolute;  /* Positions the background absolutely relative to the parent */
+    top: 0;   /* Positions the background at the top of the parent */
+    width: 100%;
+    height: 100%;
+}
+
+/* Dark overlay for the home section */
+#home::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;  /* Positions the overlay at the left of the parent */
+    width: 100%;   /* Makes the overlay cover the full width */
+    height: 100%;  /* Makes the overlay cover the full height */
+    background-color: rgba(0, 0, 0, 0.7); /* Adds a semi-transparent Dark overlay */
+}
+
+/* Content container for the home section */
+#content {
+    position: absolute; /* Positions content relative to its parent */
+    margin-top: 180px;  /* Moves it down */
+    margin-left: 180px; /* Moves it to the right */
+    color: white;
+    font-size: 2rem;
+    text-align: left;
+    padding: 50px;
+    z-index: 100;
+} 
+
+/* Headings inside the content */
+#content h1{
+    line-height: 125px;
+    width: fit-content; /* Adjusts width to fit content */
+    font-size: 6rem;
+    font-weight: 350;
+    left: 40px;
+    position: relative;  /* Positions it relative to its normal flow */
+    color:transparent;   /* Initially makes text invisible */
+    animation: text-reveal 1s ease forwards; 
+    animation-delay: 1s;  /* Delays the animation start */
+} 
+
+#content span{
+    color: crimson;
+}
+
+/* styling anchor tag inside content */
+#content div a {
+    position: relative;
+    top:20px;
+    left: 50px;
+    padding: 30px 100px 30px 100px;
+    line-height: 100px;
+    border: 4px solid crimson;
+    font-weight: 350;
+    letter-spacing: 2px;
+}
+
+#content div a:hover{
+    background-color: crimson;
+    transition: 0.3s ease;
+}
+
+/* Animation to reveal text */
+@keyframes text-reveal {
+    100% {
+      color: white;  /* Final state of the text color */
+    }
+  }
+
+/* Animation for highlighted text */
+@keyframes text-reveal-name {
+    100% {
+      color: crimson;  /* Final state of the highlighted text */
+    }
+}
+
+/* Delays for different headings  */
+#content h1:nth-child(1) {
+    animation-delay: 1s;
+}
+  
+#content h1:nth-child(2) {
+    animation-delay: 2s;
+}
+  
+#content h1:nth-child(3) {
+    animation: text-reveal-name  ease 1.5s forwards;
+    animation-delay: 3s;
+}
+
+/* Animation for a text-reveal box */
+@keyframes text-reveal-box {
+    50% {
+      width: 100%;  /* Box grows to full width */
+      left: 0;    /* It starts from the left */
+    }
+    100% {
+      width: 0;  /* Box shrinks back */
+      left: 100%; /* Moves completely to the right, revealing the text */
+    }
+}
+
+/* styling span : The <span> acts as an overlay over the text in the <h1> element. It visually "covers" the text initially. */
+#content h1 span {
+    background-color: crimson;
+    height: 98%;
+    width: 0;   /* Starts with no width (hidden) */
+    position: absolute;
+    top: 0;   /* Aligns the span with the top of the parent */
+    left: 0;  /* Aligns the span with the left of the parent */
+    animation: text-reveal-box 1s ease;
+    animation-delay: 0.5s;
+}
+
+/* animation delays :  to the <span> elements within the <h1> elements of #content, based on their position (using :nth-child) */
+
+#content h1:nth-child(1) span {  /* Targets the <span> inside the first <h1> of #content. */
+    animation-delay: 0.5s;
+}
+  
+#content h1:nth-child(2) span {
+    animation-delay: 1.5s;
+}
+  
+#content h1:nth-child(3) span {
+    animation-delay: 2.5s;
+}
+
+@media only screen and (max-width: 835px) {
+    #content div a{
+      font-size: 2.5rem;
+      left: -100px;
+    }
+
+    #content h1 {
+      font-size: 3.9rem;
+      left: -100px;
+      transition: ease-in-out;
+    }
+}
+
+/* SERVICES */
+#services {
+    top: 800px;  /* Places the services section below the home section */
+    height: 100%;  /* Takes up full height of the viewport */
+    width: 100%;
+    position: relative;
+}
+
+.services-container{
+    text-align: center;
+}
+
+/* service-top styling */
+.service-top{
+    margin-top: 100px; 
+}
+
+.service-top h1{
+    padding-top: 150px;
+    font-size: 4.5rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: black;
+}
+
+.service-top p{
+    margin-left: 555px;
+    margin-right: 555px;
+    line-height: 30px;
+    padding-top: 25px;
+    font-weight: 300;
+    color: black;
+}
+
+.service-top h1 span{
+    color: crimson;
+}
+
+/* service-bottom styling */
+.service-bottom{
+    display: flex;   /* Lays out items in a horizontal row */
+    flex-wrap: wrap;
+}
+
+.service-bottom img{
+    position: relative;
+    padding-bottom: 50px;
+    left: 40px;
+    top: 30px; 
+}
+
+.item{       /*Styles each service item as a card */
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 30px 20px 0px 20px;
+    padding-bottom: auto;
+    text-align:justify;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);  /* Adds a gradient overlay */
+    filter: brightness(1.4);
+}
+ 
+.item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    margin-left: 30px;
+  }
+
+.item p{
+    font-weight: 300;
+    margin: 30px;
+    line-height: 30px;
+    letter-spacing: 3px;
+}
+@media only screen and (max-width: 1540px) {
+    .service-top p{
+        display: inline-block;
+        margin: 0 40px;
+        max-width: 480px;
+    }
+}
+@media only screen and (min-width: 900px) {
+    .service-bottom .item {
+      flex-basis: 45%;
+      margin: 2.5%;
+    }
+  }
+  
+@media only screen and (min-width: 1320px) {
+    .service-bottom .item {
+        flex-basis: 22%;
+        margin: 1.5%;
+    }
+}
+
+/* project section */
+#project{
+    position: relative;
+    top: 800px;
+}
+
+.project-container{
+    text-align: center;
+}
+
+#project h1{
+    padding-top: 200px ;
+    font-size: 4.5rem;
+    font-weight:300;
+    letter-spacing: 3px;
+    color: black;
+}
+
+#project span{
+    color: crimson;
+}
+
+.project-box{
+    padding-top: 70px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.project-item{
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+    height: 400px;
+    justify-content: center;
+}
+
+.project-info{
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%); 
+    flex-basis: 50%;    /* Makes the info box take up 50% of the project-item width. */
+    display: flex; 
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 30px;
+    text-align: start;
+}
+
+.project-info h2{
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.project-info p{
+    padding-top: 20px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    line-height: 30px;
+}
+
+.project-img{
+    overflow: hidden;  /* Hides any content that overflows the container. */
+    position: relative;
+    flex-basis: 50%;
+}
+
+/* Dark overlay over the image */
+.project-img:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);  /* Adds a diagonal gradient overlay. */
+    opacity: 0.7;
+}
+
+.project-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 0.3s ease transform; /* Adds a smooth transition effect for transformations. */
+}
+
+.project-item:hover .project-img img {
+    transform: scale(1.1);  /* Zooms the image by 10% when the item is hovered over. */
+}
+
+.project-item:nth-child(odd) .project-img{
+    order: 1;     /* Places the image after (right) the info box for odd project items. */
+}
+.project-item:nth-child(even) .project-img{
+    order: -1;     /* Places the image before (left) the info box for even project items. */
+}
+
+@media screen and (max-width: 1360px) {
+    .project-item{
+        margin: 0px;
+        transition: 0.4s ease;
+    }
+
+    .project-item .project-info{
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .project-box .project-item{
+       flex-direction: column;
+       display: block;
+       height: 10%;
+       margin: 40px 60px 10px 60px;
+       transition: 0.9s ease-in;
+    }
+
+    .project-box .project-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .project-box .project-item:nth-child(even) {
+        flex-direction: column-reverse;
+    }
+
+    .project-box .project-img {
+        max-height: 350px;
+    }
+}
+
+
+/* About section */
+#about{
+    position: relative;
+    top: 900px;
+}
+
+.about-container{
+    display: flex;
+    padding: 200px;
+}
+
+.about-img{
+    height: 500px;
+    position: relative;
+    border: 10px solid white;
+}
+
+.about-img::after {
+    content: "";
+    position: absolute;
+    left: -33px;
+    top: 19px;
+    height: 100%;
+    width: 100%;
+    border: 10px solid crimson;
+    z-index: -1;
+}
+
+.about-img img{
+    height: 100%;
+}
+  
+.about-info{
+    margin: 0 100px 0 100px;
+    padding-top: 20px;
+    position: relative;
+}
+
+.about-info h1{
+    font-size: 4.2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: black;
+    padding-bottom: 20px;
+}
+
+.about-info h1 span{
+    color: crimson;
+}
+
+.about-info h2{
+    padding-bottom: 20px;
+}
+
+.about-info p, .about-info h2, .about-info a{
+    font-weight: 300;
+    letter-spacing: 2px;
+    line-height: 25px;
+    color: black;
+}
+
+.about-info a{
+    font-size: 1.5rem;
+    position: relative;
+    border: 2px solid crimson;
+    top: 90px;
+    color: black;
+    padding: 20px 40px 20px 40px;
+}
+
+.about-info a:hover{
+    background-color: crimson;
+    transition: 0.3s ease;
+}
+
+@media screen and (max-width: 1325px) {
+    .about-container{
+        position: relative;
+        top: 200px;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 0px 10px 300px 10px;
+    }
+    
+    .about-container .about-img {
+        top: 150px;
+    }
+
+    .about-container .about-img::after{
+        left: -50px;
+        top: 40px;
+        height: 95%;
+        max-width: 315px;
+    }
+
+    .about-container .about-info{
+        padding: 0;
+    }
+    
+    
+    .about-container .about-info p {
+        max-width: 480px;
+    }
+}
+
+/* Contact section */
+#contact{
+    position: relative;
+    top: 900px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.contact-top{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.contact-top h1{
+    font-size: 4.2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: black;
+}
+
+.contact-top h1 span{
+    color: crimson;
+}
+
+.contact-bottom{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-item{
+    display: flex;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 18px 0 #0000002c;   /* Adds a soft shadow effect to the box for depth */
+    transition: 0.2s ease box-shadow;   /* Smoothly transitions the box-shadow property changes over 0.2 seconds */
+}
+
+.contact-item:hover{
+    box-shadow: 0px 0px 5px 0 #0000002c;  /* Reduces the shadow intensity when the user hovers over the contact-item */
+}
+
+.contact-item img{
+    margin: 50px;
+}
+
+.contact-item .detail{
+    padding-top: 50px;
+    padding-right: 70px;
+}
+
+.contact-bottom h1{
+    font-size: 2rem;
+    font-weight: 500;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+    color: black;
+}
+
+.contact-bottom p{
+    font-size: 1.15rem;
+    line-height: 25px;
+    color: black;
+}
+
+@media screen and (max-width: 1540px) {
+    .contact-container{
+        position: relative;
+        top: 150px;
+    }
+    .contact-bottom .contact-item{
+        width: 25%;
+        justify-content: center;
+        margin-left: 5px;
+        transition: 0.2s ease;
+    }
+
+    .contact-item .detail{
+        position: relative;
+        padding: 20px 60px 30px 0px;
+        text-align: left;
+    }
+    .detail h1{
+        position: relative;
+        left: 30px;
+    }
+    .detail p{
+        position: relative;
+        font-size: 0.9rem;
+        width: 100%;
+        left: 30px;
+    }
+    .contact-item .icon{
+        height: 100px;
+    }
+    .contact-item img{
+        max-width: 100%;
+        height: auto;
+        margin: 20px 0 10px 10px;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 1125px) {
+    .contact-bottom .contact-item{
+        width: 100%;
+        margin: 10px 250px 10px 250px;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.2s ease;
+    }
+
+    .contact-item .icon img{
+        margin: 0px;
+    }
+
+    .contact-item .detail h1{
+        text-align: center;
+     }
+    .contact-item .detail p{
+       font-size: 1.2rem;
+       text-align: center;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .contact-bottom .contact-item{
+        margin: 10px 100px 10px 100px;
+        transition: 0.3s ease;
+    }
+}
+
+/* footer-section */
+footer{
+    position: relative;
+    top:1000px;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    text-align: center;
+}
+
+footer .name{
+    position: relative;
+    padding-top: 50px;
+}
+
+footer .name h1{
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+}
+
+footer .name h1 span{
+    color: crimson;
+}
+
+footer .name p{
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    font-weight: 300;
+}
+
+footer .social-icon{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+footer .social-item img{
+   height: 60px;
+   margin: 5px;
+}
+
+footer .social-item img:hover{
+    filter: brightness(80%);
+    transition: 0.3s ease filter;
+}
+
+footer p{
+    letter-spacing: 2px;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
